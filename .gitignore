@@ -1,0 +1,68 @@
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+.env.*.local
+**/.env
+**/.env.*.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Cache
+.cache/
+**/.cache/
+.tmp/
+.temp/
+
+# Coverage
+coverage/
+**/coverage/
+.nyc_output
+
+# Misc
+*.tgz
+*.zip
+
+# Vite specific
+frontend/.vite
+frontend/.vite-inspect
+
+# Tailwind JIT cache
+frontend/.tailwindcss/
+
+# Optional: lockfiles if using only one package manager
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
