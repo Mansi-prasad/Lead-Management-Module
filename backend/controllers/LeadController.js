@@ -3,12 +3,12 @@ import Lead from "../models/LeadModel.js";
 //  Create a new lead
 export const createLead = async (req, res) => {
   try {
-    const { name, email, phone, company, source, message } = req.body;
+    const { name, email, phone, company, source, status, message } = req.body;
 
-    if (!name || !email || !phone || !source) {
+    if (!name || !email || !phone) {
       return res
         .status(400)
-        .json({ message: "Name, email, source and phone are required" });
+        .json({ message: "Name, email and phone are required" });
     }
 
     // Prevent duplicate email
@@ -25,6 +25,7 @@ export const createLead = async (req, res) => {
       phone,
       company,
       source,
+      status,
       message,
     });
     res.status(201).json({
@@ -41,22 +42,10 @@ export const createLead = async (req, res) => {
 // Get all leads with search and pagination
 export const getLeads = async (req, res) => {
   try {
-    const { page = 1, limit = 10, search = "" } = req.query;
-    // filter - case-insensitive
-    const filter = search
-      ? {
-          $or: [
-            { name: new RegExp(search, "i") },
-            { email: new RegExp(search, "i") },
-            { phone: new RegExp(search, "i") },
-            { company: new RegExp(search, "i") },
-          ],
-        }
-      : {};
+    const { page = 1, limit = 10 } = req.query;
+    const total = await Lead.countDocuments();
 
-    const total = await Lead.countDocuments(filter);
-    // Fetching leads with pagination
-    const leads = await Lead.find(filter)
+    const leads = await Lead.find()
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(Number(limit));
@@ -66,8 +55,8 @@ export const getLeads = async (req, res) => {
       data: leads,
       pagination: {
         total,
-        page,
-        limit,
+        page: Number(page),
+        limit: Number(limit),
         pages: Math.ceil(total / limit),
       },
     });
@@ -127,6 +116,50 @@ export const deleteLead = async (req, res) => {
     });
   } catch (error) {
     console.log("Error to delete lead: ", error);
+    res.status(500).json({ success: false, message: "Server Error!" });
+  }
+};
+
+// Search leads by name, email, phone, or company
+export const searchLeads = async (req, res) => {
+  try {
+    const { query = "", page = 1, limit = 10 } = req.query;
+
+    if (!query) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a search query",
+      });
+    }
+
+    const filter = {
+      $or: [
+        { name: new RegExp(query, "i") },
+        { email: new RegExp(query, "i") },
+        { phone: new RegExp(query, "i") },
+        { company: new RegExp(query, "i") },
+      ],
+    };
+
+    const total = await Lead.countDocuments(filter);
+
+    const leads = await Lead.find(filter)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    res.status(200).json({
+      success: true,
+      data: leads,
+      pagination: {
+        total,
+        page: Number(page),
+        limit: Number(limit),
+        pages: Math.ceil(total / limit),
+      },
+    });
+  } catch (error) {
+    console.log("Error searching leads: ", error);
     res.status(500).json({ success: false, message: "Server Error!" });
   }
 };

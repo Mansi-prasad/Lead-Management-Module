@@ -23,6 +23,11 @@ const leadSchema = new mongoose.Schema(
       enum: ["Website", "Referral", "Ad", "Other"],
       default: "Website",
     },
+    status: {
+      type: String,
+      enum: ["New", "In Progress", "Converted", "Lost"],
+      default: "New",
+    },
     message: { type: String, trim: true, maxlength: 1000 },
   },
   { timestamps: true }
