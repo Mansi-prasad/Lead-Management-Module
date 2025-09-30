@@ -3,8 +3,8 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 export default function LeadCard({ lead, onEdit, onDelete }) {
   return (
-    <div className="border border-gray-100 shadow-sm rounded-2xl p-3 md:p-4 flex flex-col md:flex-row md:justify-between gap-2 transition-transform duration-300 hover:scale-102 ">
-      <div>
+    <div className="border border-gray-100 shadow-sm rounded-2xl p-3 flex flex-col gap-2 transition-transform duration-300 hover:scale-102 bg-pink-50">
+      <div className="space-y-1">
         <div className="font-semibold">
           <span className="text-xl text-pink-700">{lead.name} </span>
           <span className="text-gray-500 text-sm">({lead.source})</span>
