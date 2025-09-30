@@ -1,6 +1,7 @@
 # Lead Management Module
 
 **Live Link** 
+https://lead-management-module-eta.vercel.app/
 
 A full-featured **Lead Management Module** built with **React** (frontend) and **Node.js + Express + MongoDB** (backend). This module allows you to **add, edit, delete, search, and paginate leads** efficiently. It is fully responsive for **desktop and mobile devices**.
 
@@ -18,7 +19,7 @@ A full-featured **Lead Management Module** built with **React** (frontend) and *
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: React, TailwindCSS, React Icons, react-hot-toast  
 - **Backend**: Node.js, Express.js, MongoDB, Mongoose  
@@ -26,8 +27,7 @@ A full-featured **Lead Management Module** built with **React** (frontend) and *
 
 ---
 
-## Installation
-
+## 🚀 Project Setup
 
 ```bash
   # Clone the repository
@@ -84,3 +84,18 @@ The API provides endpoints for managing leads:
 * Search Leads – Search leads by name, email, phone, or company with pagination `GET /api/leads/search?query=jane&page=1&limit=10`.
 
 ---
+
+
+## 📸 Screenshots
+
+**Lead Form page:** 
+
+![Lead Form Screenshot](screenshots/Lead-form.png)
+
+**Lead Desktop View:**
+
+![Lead Desktop View Screenshot](screenshots/Lead-desktop-view.png)
+
+**Lead Mobile View:**
+
+![Lead Mobile View Screenshot](screenshots/Lead-mobile-view.png)
