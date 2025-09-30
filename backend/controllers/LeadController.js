@@ -42,22 +42,24 @@ export const createLead = async (req, res) => {
 // Get all leads with search and pagination
 export const getLeads = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const pageNum = Number(req.query.page) || 1;
+    const limitNum = Number(req.query.limit) || 10;
+
     const total = await Lead.countDocuments();
 
     const leads = await Lead.find()
       .sort({ createdAt: -1 })
-      .skip((page - 1) * limit)
-      .limit(Number(limit));
+      .skip((pageNum - 1) * limitNum)
+      .limit(limitNum);
 
     res.status(200).json({
       success: true,
       data: leads,
       pagination: {
         total,
-        page: Number(page),
-        limit: Number(limit),
-        pages: Math.ceil(total / limit),
+        page: pageNum,
+        limit: limitNum,
+        pages: Math.ceil(total / limitNum),
       },
     });
   } catch (error) {
